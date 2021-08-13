@@ -1,115 +1,163 @@
-<<<<<<< HEAD
 #include <stdio.h>
 #include <string.h>
-#define MAX 5
 
-FILE *filePointer;
-char history[1000];
+#define MAX 256
 
-typedef struct
+FILE *fp1, *fp2;
+char history[MAX];
+char file[] = "dataminuman.txt";
+char temp[] = "temp.txt";
+
+struct Data
 {
     char namaMinuman[10];
     char size[10];
     char serving[10];
     int price;
-} Data;
+} d;
 
 void inputData()
 {
-    Data d[MAX];
-    printf("\n===== INPUT DATA =====");
-    for (int i = 0; i <= 5; i++)
+    char c;
+    printf("\n===== INPUT DATA =====\n");
+    do
     {
-        do
+        printf("Nama Minuman: ");
+        scanf("%s", d.namaMinuman);
+        if (strcmp(d.namaMinuman, "Kopi") != 0 && strcmp(d.namaMinuman, "Teh") != 0 && strcmp(d.namaMinuman, "Coklat") != 0 && strcmp(d.namaMinuman, "Soda") != 0 &&
+            strcmp(d.namaMinuman, "kopi") != 0 && strcmp(d.namaMinuman, "teh") != 0 && strcmp(d.namaMinuman, "coklat") != 0 && strcmp(d.namaMinuman, "soda") != 0)
         {
-            printf("\nNama Minuman: ");
-            scanf("%s", d[i].namaMinuman);
-            if (strcmp(d[i].namaMinuman, "Kopi") != 0 && strcmp(d[i].namaMinuman, "Teh") != 0 && strcmp(d[i].namaMinuman, "Coklat") != 0 && strcmp(d[i].namaMinuman, "Soda") != 0)
-            {
-                printf("Maaf minuman tidak tersedia, silahkan pilih minuman lain\n");
-            }
-        } while (strcmp(d[i].namaMinuman, "Kopi") != 0 && strcmp(d[i].namaMinuman, "Teh") != 0 && strcmp(d[i].namaMinuman, "Coklat") != 0 && strcmp(d[i].namaMinuman, "Soda") != 0);
-        do
+            printf("Maaf minuman tidak tersedia, silahkan masukkan minuman lain\n");
+        }
+    } while (strcmp(d.namaMinuman, "Kopi") != 0 && strcmp(d.namaMinuman, "Teh") != 0 && strcmp(d.namaMinuman, "Coklat") != 0 && strcmp(d.namaMinuman, "Soda") != 0 &&
+             strcmp(d.namaMinuman, "kopi") != 0 && strcmp(d.namaMinuman, "teh") != 0 && strcmp(d.namaMinuman, "coklat") != 0 && strcmp(d.namaMinuman, "soda") != 0);
+    do
+    {
+        printf("Size: ");
+        scanf("%s", d.size);
+        if (strcmp(d.size, "Small") != 0 && strcmp(d.size, "Medium") != 0 && strcmp(d.size, "Largest") != 0 &&
+            strcmp(d.size, "small") != 0 && strcmp(d.size, "medium") != 0 && strcmp(d.size, "largest") != 0)
         {
-            printf("Size: ");
-            scanf("%s", d[i].size);
-            if (strcmp(d[i].size, "Small") != 0 && strcmp(d[i].size, "Medium") != 0 && strcmp(d[i].size, "Large") != 0)
-            {
-                printf("Maaf size tidak tersedia, silahkan masukkan size lain\n");
-            }
-        } while (strcmp(d[i].size, "Small") != 0 && strcmp(d[i].size, "Medium") != 0 && strcmp(d[i].size, "Large") != 0);
-        do
+            printf("Maaf size tidak tersedia, silahkan masukkan size lain\n");
+        }
+    } while (strcmp(d.size, "Small") != 0 && strcmp(d.size, "Medium") != 0 && strcmp(d.size, "Largest") != 0 &&
+             strcmp(d.size, "small") != 0 && strcmp(d.size, "medium") != 0 && strcmp(d.size, "largest") != 0);
+    do
+    {
+        printf("Penyajian: ");
+        scanf("%s", d.serving);
+        if (strcmp(d.serving, "Panas") != 0 && strcmp(d.serving, "Dingin") != 0 && strcmp(d.serving, "Hangat") != 0 &&
+            strcmp(d.serving, "panas") != 0 && strcmp(d.serving, "dingin") != 0 && strcmp(d.serving, "hangat") != 0)
         {
-            printf("Penyajian: ");
-            scanf("%s", d[i].serving);
-            if (strcmp(d[i].serving, "Panas") != 0 && strcmp(d[i].serving, "Dingin") != 0 && strcmp(d[i].serving, "Hangat") != 0)
-            {
-                printf("maaf Penyajian tidak tersedia, silahkan masukkan penyajian lain\n");
-            }
-        } while (strcmp(d[i].serving, "Panas") != 0 && strcmp(d[i].serving, "Dingin") != 0 && strcmp(d[i].serving, "Hangat") != 0);
+            printf("Maaf penyajian tidak tersedia, silahkan masukkan penyajian lain\n");
+        }
+    } while (strcmp(d.serving, "Panas") != 0 && strcmp(d.serving, "Dingin") != 0 && strcmp(d.serving, "Hangat") != 0 &&
+             strcmp(d.serving, "panas") != 0 && strcmp(d.serving, "dingin") != 0 && strcmp(d.serving, "hangat") != 0);
 
-        d[i].price = strlen(d[i].namaMinuman) * strlen(d[i].size) * strlen(d[i].serving) * 100;
-        printf("============================\n");
-        printf("Detail pesanan: %d", i + 1);
-        printf("\nNama Minuman: %s", d[i].namaMinuman);
-        printf("\nSize: %s", d[i].size);
-        printf("\nPenyajian: %s", d[i].serving);
-        printf("\nHarga: %d", d[i].price);
-        printf("\n============================");
+    d.price = strlen(d.namaMinuman) * strlen(d.size) * strlen(d.serving) * 100;
+    printf("======== DETAIL PESANAN ========\n");
+    printf("\nNama minuman: %s", d.namaMinuman);
+    printf("\nSize: %s", d.size);
+    printf("\nPenyajian: %s", d.serving);
+    printf("\nHarga: %d", d.price);
+    printf("\n============================");
 
-        char k;
-        do
+    while (!0)
+    {
+        printf("\nSimpan pesanan? [y/n]: ");
+        scanf(" %c", &c);
+        switch (c)
         {
-            printf("\nIngin pesan lagi? [y/n]: ");
-            scanf("%c", &k);
-            switch (k)
-            {
-            case 'y':
-                filePointer = fopen("dataminuman.txt", "a");
-                fprintf(filePointer, "No: \nNama minuman: \nSize: \nPenyajian: \nHarga: ", i + 1, d[i].namaMinuman, d[i].size, d[i].serving, d[i].price);
-                break;
-            case 'n':
-                return;
-            default:
-                printf("Hanya masukkan y/n\n");
-                break;
-            }
-        } while (k != 'y' || k != 'n');
+        case 'Y':
+        case 'y':
+            fp1 = fopen(file, "a");
+            fprintf(fp1, "Nama minuman: %s, Size: %s, Penyajian: %s, Harga: %d\n", d.namaMinuman, d.size, d.serving, d.price);
+            fclose(fp1);
+            printf("Data telah disimpan kedalam history.\n");
+            return;
+        case 'N':
+        case 'n':
+            return;
+        default:
+            printf("Pilihan salah");
+            break;
+        }
     }
 }
 
 void viewHistory()
 {
-    printf("\n===== History Penjualan =====");
-    filePointer = fopen("dataminuman.txt", "r");
-    if (filePointer == NULL)
+    int line = 0;
+    printf("\n=== VIEW HISTORY ===\n");
+    fp1 = fopen(file, "r");
+    if (fp1 == NULL)
     {
-        printf("\nTidak ada history.");
+        printf("File tidak ditemukan.\n");
     }
     else
     {
-        printf("\n");
-        while (fgets(history, 50, filePointer) != NULL)
+        while (fgets(history, MAX, fp1) != NULL)
         {
-            printf("%s", history);
+            ++line;
+            printf("%i. %s", line, history);
         }
-        fclose(filePointer);
+        fclose(fp1);
     }
 }
 
 void deleteHistory()
 {
-    fopen("dataminuman.txt", "wb");
-    printf("History berhasil dihapus.");
+    int index, ctr = 0;
+    printf("\n=== DELETE HISTORY ===\n");
+    fp1 = fopen(file, "r");
+    if (fp1 == NULL)
+    {
+        printf("File tidak ditemukan.\n");
+        return;
+    }
+    fp2 = fopen(temp, "w");
+    if (fp2 == NULL)
+    {
+        printf("Gagal mengubah indeks file.\n");
+        fclose(fp1);
+        return;
+    }
+
+    printf("Masukkan indeks data yang akan dihapus: ");
+    scanf("%d", &index);
+    while (!feof(fp1))
+    {
+        strcpy(history, "\0");
+        fgets(history, MAX, fp1);
+        if (!feof(fp1))
+        {
+            ctr++;
+            if (ctr != index)
+            {
+                fprintf(fp2, "%s", history);
+            }
+        }
+    }
+    fclose(fp1);
+    fclose(fp2);
+    remove(file);
+    rename(temp, file);
+    printf("Indeks berhasil dihapus.\n");
 }
 
-void main()
+int main(void)
 {
-    filePointer = fopen("dataminuman.txt", "w");
+
     int s;
+    fp1 = fopen(file, "r");
+    if (fp1 == NULL)
+    {
+        printf("Gagal membuka file dataminuman.txt.\n");
+    }
+    fclose(fp1);
     do
     {
-        printf("\nMENU:\n");
+        printf("MENU:\n");
         printf("1. INPUT DATA\n");
         printf("2. VIEW HISTORY\n");
         printf("3. DELETE HISTORY\n");
@@ -128,151 +176,11 @@ void main()
             deleteHistory();
             break;
         case 4:
-            fopen("dataminuman.txt", "a");
             printf("Terimakasih");
-            return;
+            return 0;
         default:
             printf("Salah memasukkan menu, coba lagi.\n");
             break;
         }
     } while (s != 4);
-=======
-#include <stdio.h>
-#include <string.h>
-#define MAX 5
-
-FILE *filePointer;
-char history[1000];
-
-typedef struct
-{
-    char namaMinuman[10];
-    char size[10];
-    char serving[10];
-    int price;
-} Data;
-
-void inputData()
-{
-    Data d[MAX];
-    printf("\n===== INPUT DATA =====");
-    for (int i = 0; i <= 5; i++)
-    {
-        do
-        {
-            printf("\nNama Minuman: ");
-            scanf("%s", d[i].namaMinuman);
-            if (strcmp(d[i].namaMinuman, "Kopi") != 0 && strcmp(d[i].namaMinuman, "Teh") != 0 && strcmp(d[i].namaMinuman, "Coklat") != 0 && strcmp(d[i].namaMinuman, "Soda") != 0)
-            {
-                printf("Maaf minuman tidak tersedia, silahkan pilih minuman lain\n");
-            }
-        } while (strcmp(d[i].namaMinuman, "Kopi") != 0 && strcmp(d[i].namaMinuman, "Teh") != 0 && strcmp(d[i].namaMinuman, "Coklat") != 0 && strcmp(d[i].namaMinuman, "Soda") != 0);
-        do
-        {
-            printf("Size: ");
-            scanf("%s", d[i].size);
-            if (strcmp(d[i].size, "Small") != 0 && strcmp(d[i].size, "Medium") != 0 && strcmp(d[i].size, "Large") != 0)
-            {
-                printf("Maaf size tidak tersedia, silahkan masukkan size lain\n");
-            }
-        } while (strcmp(d[i].size, "Small") != 0 && strcmp(d[i].size, "Medium") != 0 && strcmp(d[i].size, "Large") != 0);
-        do
-        {
-            printf("Penyajian: ");
-            scanf("%s", d[i].serving);
-            if (strcmp(d[i].serving, "Panas") != 0 && strcmp(d[i].serving, "Dingin") != 0 && strcmp(d[i].serving, "Hangat") != 0)
-            {
-                printf("maaf Penyajian tidak tersedia, silahkan masukkan penyajian lain\n");
-            }
-        } while (strcmp(d[i].serving, "Panas") != 0 && strcmp(d[i].serving, "Dingin") != 0 && strcmp(d[i].serving, "Hangat") != 0);
-
-        d[i].price = strlen(d[i].namaMinuman) * strlen(d[i].size) * strlen(d[i].serving) * 100;
-        printf("============================\n");
-        printf("Detail pesanan: %d", i + 1);
-        printf("\nNama Minuman: %s", d[i].namaMinuman);
-        printf("\nSize: %s", d[i].size);
-        printf("\nPenyajian: %s", d[i].serving);
-        printf("\nHarga: %d", d[i].price);
-        printf("\n============================");
-
-        char k;
-        do
-        {
-            printf("\nIngin pesan lagi? [y/n]: ");
-            scanf("%c", &k);
-            switch (k)
-            {
-            case 'y':
-                filePointer = fopen("dataminuman.txt", "a");
-                fprintf(filePointer, "No: \nNama minuman: \nSize: \nPenyajian: \nHarga: ", i + 1, d[i].namaMinuman, d[i].size, d[i].serving, d[i].price);
-                break;
-            case 'n':
-                return;
-            default:
-                printf("Hanya masukkan y/n\n");
-                break;
-            }
-        } while (k != 'y' || k != 'n');
-    }
-}
-
-void viewHistory()
-{
-    printf("\n===== History Penjualan =====");
-    filePointer = fopen("dataminuman.txt", "r");
-    if (filePointer == NULL)
-    {
-        printf("\nTidak ada history.");
-    }
-    else
-    {
-        printf("\n");
-        while (fgets(history, 50, filePointer) != NULL)
-        {
-            printf("%s", history);
-        }
-        fclose(filePointer);
-    }
-}
-
-void deleteHistory()
-{
-    fopen("dataminuman.txt", "wb");
-    printf("History berhasil dihapus.");
-}
-
-void main()
-{
-    filePointer = fopen("dataminuman.txt", "w");
-    int s;
-    do
-    {
-        printf("\nMENU:\n");
-        printf("1. INPUT DATA\n");
-        printf("2. VIEW HISTORY\n");
-        printf("3. DELETE HISTORY\n");
-        printf("4. EXIT\n");
-        printf("Masukkan pilihan: ");
-        scanf("%d", &s);
-        switch (s)
-        {
-        case 1:
-            inputData();
-            break;
-        case 2:
-            viewHistory();
-            break;
-        case 3:
-            deleteHistory();
-            break;
-        case 4:
-            fopen("dataminuman.txt", "a");
-            printf("Terimakasih");
-            return;
-        default:
-            printf("Salah memasukkan menu, coba lagi.\n");
-            break;
-        }
-    } while (s != 4);
->>>>>>> backup tugas
 }
